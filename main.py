@@ -3,13 +3,9 @@ import vecs
 from PIL import Image
 import streamlit as st
 from dotenv import load_dotenv
-from st_supabase_connection import SupabaseConnection
 from supabase import create_client
 from streamlit_supabase_auth import login_form, logout_button
 from sentence_transformers import SentenceTransformer
-from matplotlib import pyplot as plt
-from matplotlib import image as mpimg
-from vecs.adapter import Adapter, ParagraphChunker, TextEmbedding
 
 def create_collection(images_arr, conn):
     with vecs.create_client(conn) as vx:
