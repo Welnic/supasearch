@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "supasearch"
+version = "0.1.0"
+description = ""
+authors = ["Welnic <catalinamelnic@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.27.0"
+st-supabase-connection = "^1.1.0"
+streamlit-supabase-auth = "^1.0.2"
+python-dotenv = "^1.0.0"
+vecs = "^0.4.0"
+matplotlib = "^3.8.0"
+sentence-transformers = "^2.2.2"
+torch = ">=2.0.0, !=2.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
