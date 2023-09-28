@@ -46,7 +46,7 @@ _This app is built with [Streamlit](https://docs.streamlit.io/)._
 2. **Install dependencies:**
 
 ```bash
-   pip install -r requirements.txt
+   poetry install 
 ```
 
 3. **Configure Supabase**:
@@ -54,20 +54,20 @@ _This app is built with [Streamlit](https://docs.streamlit.io/)._
 - Create a Supabase project and set up your database. Add pgvector extension to your database.
 - Obtain your Supabase URL and API Key and update the .env file with your credentials as followings:
 
-# .env.example
-
-SUPABASE_URL = "https://xxxxxxxx.supabase.co"
-SUPABASE_KEY = "xxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxx.xxxxxxxxx-xxxxxx"
-DB_USER = "xxxxxxx"
-PASSWORD = "xxxxxxxx"
-HOST = "db.xxxxxxxxx.supabase.co"
-PORT = "5432"
-DB_NAME = "xxxxx"
+      .env example
+   
+      SUPABASE_URL = "https://xxxxxxxx.supabase.co"  
+      SUPABASE_KEY = "xxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxx.xxxxxxxxx-xxxxxx"  
+      DB_USER = "xxxxxxx"  
+      PASSWORD = "xxxxxxxx"  
+      HOST = "db.xxxxxxxxx.supabase.co"  
+      PORT = "5432"  
+      DB_NAME = "xxxxx" 
 
 4. **Run the App**:
 
 ```bash
-  poetry run streamlit run app.py
+  poetry run streamlit run main.py
 ```
 
 ⭐ Happy image searching! ⭐
