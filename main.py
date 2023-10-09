@@ -124,7 +124,7 @@ def main():
         session = login_form(
         url=supabase_url,
         apiKey=supabase_key,
-        providers=["github"],
+        # providers=["github"],
         )
 
         # Update query param to reset url fragments
