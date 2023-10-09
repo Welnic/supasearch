@@ -7,7 +7,7 @@ from supabase import create_client
 from streamlit_supabase_auth import login_form, logout_button
 from sentence_transformers import SentenceTransformer
 
-def create_collection(images_arr, conn):
+def upload_image_to_collection(images_arr, conn):
     with vecs.create_client(conn) as vx:
       
       # create a new collection with an associated adapter
@@ -53,13 +53,13 @@ def upload_file_button(file, client, conn):
                 "x-upsert": "true",
                 },
         )
-    create_collection(images, conn)
+    upload_image_to_collection(images, conn)
     st.toast('Done')  
 
 def result_search_button(text_search, conn, image_url):
     if text_search != "":
       with vecs.create_client(conn) as vx:
-        images = vx.get_collection(name="image_vectors")
+        images = vx.get_or_create_collection(name="image_vectors", dimension=512)
 
         # Load CLIP model
         model = SentenceTransformer('clip-ViT-B-32')
@@ -89,8 +89,6 @@ def result_search_button(text_search, conn, image_url):
             for i, image_file in enumerate(group):
                 col[i].image(image_url + image_file)
         
-        no_search = False
-
 
 def main():
 
@@ -115,6 +113,7 @@ def main():
     no_search = True
     url = "https://mnsfnlvrzlybpibcvvit.supabase.co/storage/v1/object/public/images/"
     
+
     if 'clicked_upload' not in st.session_state:
         st.session_state.clicked_upload = False
 
@@ -125,14 +124,13 @@ def main():
         session = login_form(
         url=supabase_url,
         apiKey=supabase_key,
-        # providers=["apple", "facebook", "github", "google"],
+        providers=["github"],
         )
-        
+
         # Update query param to reset url fragments
         st.experimental_set_query_params(page=["success"])
         
         if session: 
-            # st.experimental_set_query_params(page=["success"])
             st.write(f"Welcome {session['user']['email']}")
             
             logout_button()
@@ -164,13 +162,16 @@ def main():
         all_files = supabase_client.storage.from_('images').list('', {'sortBy': {'column':'created_at', 'order': 'asc'}})
         if all_files != []:
             for i in range(1,len(all_files),5):
-                group_names = [file["name"] for file in all_files[i:i+5]]
+                group_names = [file["name"] for file in all_files[i:i+5] if file["name"].endswith(".png")]
                 groups.append(group_names)
 
             for group in groups:
                 col = st.columns(5)
                 for i, image_file in enumerate(group):
-                    col[i].image(url + image_file)                        
+                    col[i].image(url + image_file)   
+
+             
 
 if __name__ == '__main__':
-  main()
+    main()
+  
